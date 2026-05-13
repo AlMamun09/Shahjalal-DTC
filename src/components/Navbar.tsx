@@ -7,8 +7,8 @@ const navLinks = [
   { path: '/', key: 'nav.home' },
   { path: '/about', key: 'nav.about' },
   { path: '/courses', key: 'nav.courses' },
-  { path: '/license', key: 'License' },
-  { path: '/blog', key: 'Blog' },
+  { path: '/license', key: 'nav.license' },
+  { path: '/blog', key: 'nav.blog' },
   { path: '/gallery', key: 'nav.gallery' },
   { path: '/branches', key: 'nav.branches' },
   { path: '/contact', key: 'nav.contact' },
@@ -50,7 +50,7 @@ export function Navbar() {
                 location.pathname === link.path ? 'text-brand-gold font-semibold bg-white/10' : 'text-white/80 hover:text-white hover:bg-white/5'
               }`}
             >
-              {link.key.length <= 8 ? link.key : t(link.key)}
+              {t(link.key)}
             </Link>
           ))}
           {isAdmin && (
@@ -64,7 +64,7 @@ export function Navbar() {
             {i18n.language === 'bn' ? 'English' : 'বাংলা'}
           </button>
           <Link to="/enroll" className="btn-shine bg-brand-red text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-brand-red-light transition-all ml-2 shadow-lg shadow-brand-red/30">
-            Apply Online
+            {t('nav.apply')}
           </Link>
         </div>
 
@@ -85,11 +85,11 @@ export function Navbar() {
             {navLinks.map(link => (
               <Link key={link.path} to={link.path} onClick={() => setMobileOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${location.pathname === link.path ? 'bg-brand-red text-white' : 'text-white/80 hover:bg-white/10'}`}>
-                {link.key.length <= 8 ? link.key : t(link.key)}
+                {t(link.key)}
               </Link>
             ))}
             {isAdmin && <Link to="/admin" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-xl text-sm font-medium text-brand-gold bg-brand-gold/10">Dashboard</Link>}
-            <Link to="/enroll" onClick={() => setMobileOpen(false)} className="block px-4 py-3 bg-brand-red text-white rounded-xl text-sm font-semibold text-center mt-2 shadow-lg shadow-brand-red/30">Apply Online</Link>
+            <Link to="/enroll" onClick={() => setMobileOpen(false)} className="block px-4 py-3 bg-brand-red text-white rounded-xl text-sm font-semibold text-center mt-2 shadow-lg shadow-brand-red/30">{t('nav.apply')}</Link>
           </div>
         </div>
       )}

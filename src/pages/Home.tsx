@@ -101,7 +101,7 @@ export function HomePage() {
 
       {/* Services */}
       {services.length > 0 && (
-        <section className="py-16 max-w-7xl mx-auto px-4">
+        <section className="py-12 max-w-7xl mx-auto px-4">
           <Section><h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">Our Services</h2><div className="section-divider" /></Section>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mt-10">
             {services.map((s, i) => (
@@ -118,31 +118,35 @@ export function HomePage() {
       )}
 
       {/* Courses */}
-      <section className="py-16 bg-light-gray">
+      <section className="py-12 bg-light-gray">
         <div className="max-w-7xl mx-auto px-4">
           <Section><h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">{t('courses.title')}</h2><div className="section-divider" /></Section>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {courses.slice(0, 6).map((course, i) => (
-              <Section key={course.id} delay={i * 80}>
-                <div className="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 h-full flex flex-col group">
-                  <div className="flex items-start justify-between mb-3">
-                    <span className="text-3xl">{course.icon || '🚗'}</span>
-                    {course.price_bdt && <span className="text-xl font-bold text-brand-red">৳{course.price_bdt.toLocaleString()}</span>}
+              <Section key={course.id} delay={i * 60}>
+                <div className="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden h-full flex flex-col group">
+                  <div className="h-40 bg-gradient-to-br from-brand-red/10 via-brand-gold/5 to-gray-100 relative overflow-hidden flex items-center justify-center">
+                    <span className="text-6xl opacity-30 group-hover:scale-110 transition-transform duration-500">{course.icon || '🚗'}</span>
+                    {course.price_bdt && (
+                      <div className="absolute top-3 right-3 bg-brand-red text-white px-3 py-1.5 rounded-xl font-bold text-sm shadow-lg shadow-brand-red/30">৳{course.price_bdt.toLocaleString()}</div>
+                    )}
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 group-hover:text-brand-red transition-colors">{lang === 'bn' ? course.name_bn : course.name_en}</h3>
-                  <p className="text-gray-600 text-sm mb-4 flex-1">{lang === 'bn' ? course.description_bn : course.description_en}</p>
-                  {course.practical_classes && (
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-xs text-gray-400">Practical</p><p className="font-semibold text-sm">{course.practical_classes}</p></div>
-                      <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-xs text-gray-400">Auto</p><p className="font-semibold text-sm">{course.auto_classes}</p></div>
-                      <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-xs text-gray-400">Theory</p><p className="font-semibold text-sm">{course.theory_classes}</p></div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold mb-3 group-hover:text-brand-red transition-colors">{lang === 'bn' ? course.name_bn : course.name_en}</h3>
+                    {course.practical_classes && (
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-lg font-bold text-brand-red">{course.practical_classes}</p><p className="text-xs text-gray-500">Practical</p></div>
+                        <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-lg font-bold text-brand-red">{course.auto_classes || 0}</p><p className="text-xs text-gray-500">Auto</p></div>
+                        <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-lg font-bold text-brand-red">{course.theory_classes || 0}</p><p className="text-xs text-gray-500">Theory</p></div>
+                        <div className="bg-gray-50 rounded-xl p-2.5 text-center"><p className="text-lg font-bold text-brand-red">{(course.practical_classes || 0) + (course.auto_classes || 0) + (course.theory_classes || 0)}</p><p className="text-xs text-gray-500">Total</p></div>
+                      </div>
+                    )}
+                    <p className="text-gray-500 text-xs leading-relaxed flex-1 mb-4">{lang === 'bn' ? course.description_bn : course.description_en}</p>
+                    <div className="flex gap-2 mt-auto">
+                      <Link to="/enroll" className="flex-1 text-center px-3 py-2.5 bg-gradient-to-r from-brand-red to-brand-red-light text-white rounded-xl text-sm font-semibold transition-all hover:shadow-lg hover:shadow-brand-red/30 hover:scale-[1.02] active:scale-95">Contact Us</Link>
+                      <button className="flex-1 px-3 py-2.5 border-2 border-brand-red/30 text-brand-red rounded-xl text-sm font-semibold hover:bg-brand-red/5 transition-all hover:border-brand-red">View Details</button>
                     </div>
-                  )}
-                  <Link to="/enroll" className="group/btn relative inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-brand-red to-brand-red-light text-white rounded-xl text-sm font-semibold overflow-hidden transition-all shadow-md hover:shadow-lg hover:shadow-brand-red/30 hover:scale-[1.02] active:scale-95">
-                    <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
-                    <span className="relative">Enroll Now</span>
-                    <svg className="relative w-3.5 h-3.5 transition-all group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-                  </Link>
+                  </div>
                 </div>
               </Section>
             ))}
@@ -153,7 +157,7 @@ export function HomePage() {
 
       {/* Facilities */}
       {facilities.length > 0 && (
-        <section className="py-16 max-w-7xl mx-auto px-4">
+        <section className="py-12 max-w-7xl mx-auto px-4">
           <Section><h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">Our Facilities</h2><div className="section-divider" /></Section>
           <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 mt-10">
             {facilities.map((f, i) => (
@@ -171,7 +175,7 @@ export function HomePage() {
 
       {/* Gallery Preview */}
       {photos.length > 0 && (
-        <section className="py-16 bg-light-gray">
+        <section className="py-12 bg-light-gray">
           <div className="max-w-7xl mx-auto px-4">
             <Section><h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">See Our Driving Practice Gallery</h2><div className="section-divider" /></Section>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-10">
@@ -190,7 +194,7 @@ export function HomePage() {
 
       {/* Testimonials */}
       {testimonials.length > 0 && (
-        <section className="py-16 max-w-7xl mx-auto px-4">
+        <section className="py-12 max-w-7xl mx-auto px-4">
           <Section><h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">What Our Students Say</h2><div className="section-divider" /></Section>
           <div className="hidden md:grid md:grid-cols-3 gap-6 mt-10">
             {testimonials.map((t, i) => (
@@ -230,7 +234,7 @@ export function HomePage() {
       )}
 
       {/* CTA */}
-      <section className="relative py-16 overflow-hidden">
+      <section className="relative py-12 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-brand-red to-brand-red-light" />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 border border-white rounded-full" />
