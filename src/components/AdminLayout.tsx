@@ -104,16 +104,16 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                 {navItems.find(n => n.path === location.pathname)?.label || 'Admin'}
               </h1>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <a href="/" target="_blank"
-                className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-brand-red hover:bg-brand-red/5 rounded-xl transition-all duration-300 font-medium">
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm text-brand-red bg-brand-red/5 hover:bg-brand-red/10 rounded-xl transition-all duration-300 font-medium hover:shadow-sm hover:shadow-brand-red/10">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                View Site
+                <span className="hidden sm:inline">View Site</span>
               </a>
               <button onClick={handleLogout}
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-all duration-300 font-medium hover:shadow-sm">
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-all duration-300 font-medium hover:shadow-sm">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-                Logout
+                <span>Logout</span>
               </button>
             </div>
           </div>

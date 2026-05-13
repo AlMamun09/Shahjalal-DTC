@@ -66,10 +66,10 @@ export function AdminSettings() {
         </div>
       </div>
 
-      <form onSubmit={handleSave} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-2xl">
-        <div className="grid md:grid-cols-2 gap-5">
+      <form onSubmit={handleSave} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-4xl">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SETTING_KEYS.map(key => (
-            <div key={key} className={key.includes('description') ? 'md:col-span-2' : ''}>
+            <div key={key}>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">{LABELS[key]}</label>
               <input
                 type="text"
