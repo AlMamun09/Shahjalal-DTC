@@ -68,7 +68,7 @@ export function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-black via-brand-black to-zinc-900" />
         {settings.hero_image_url && (
           <>
@@ -80,7 +80,7 @@ export function HomePage() {
         <div className="absolute top-20 left-10 w-64 h-64 bg-brand-red/10 rounded-full blur-3xl animate-[float_6s_ease-in-out_infinite]" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-brand-gold/5 rounded-full blur-3xl animate-[float_8s_ease-in-out_infinite_1s]" />
 
-        <div className="relative max-w-7xl mx-auto px-4 py-24 text-center">
+        <div className="relative max-w-7xl mx-auto px-4 py-12 text-center">
           <RevealSection delay={0}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur rounded-full text-sm text-brand-gold mb-8 border border-white/10">
               <span className="w-2 h-2 bg-brand-gold rounded-full animate-pulse" />
@@ -136,13 +136,13 @@ export function HomePage() {
       </section>
 
       {/* Courses */}
-      <section className="py-24 max-w-7xl mx-auto px-4">
+      <section className="py-16 max-w-7xl mx-auto px-4">
         <RevealSection>
-          <h2 className="text-4xl md:text-5xl font-poppins font-bold text-center mb-4">{t('courses.title')}</h2>
+          <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">{t('courses.title')}</h2>
           <div className="section-divider" />
         </RevealSection>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
+        <div className="grid md:grid-cols-3 gap-6 mt-10">
           {courses.map((course, i) => (
             <RevealSection key={course.id} delay={i * 150}>
               <div className="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group relative overflow-hidden">
@@ -186,21 +186,21 @@ export function HomePage() {
 
       {/* Testimonials */}
       {testimonials.length > 0 && (
-        <section className="py-24 bg-light-gray overflow-hidden">
+        <section className="py-16 bg-light-gray overflow-hidden">
           <div className="max-w-7xl mx-auto px-4">
             <RevealSection>
-              <h2 className="text-4xl md:text-5xl font-poppins font-bold text-center mb-4">What Our Students Say</h2>
+              <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">What Our Students Say</h2>
               <div className="section-divider" />
             </RevealSection>
 
             {/* Desktop grid */}
-            <div className="hidden md:grid md:grid-cols-3 gap-8 mt-12">
+            <div className="hidden md:grid md:grid-cols-3 gap-6 mt-10">
               {testimonials.map((t, i) => (
                 <RevealSection key={t.id} delay={i * 150}>
-                  <div className="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                  <div className="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full flex flex-col">
                     <div className="flex text-brand-gold mb-4 text-lg">{'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}</div>
-                    <p className="text-gray-600 leading-relaxed mb-6 italic">"{lang === 'bn' ? t.text_bn : t.text_en}"</p>
-                    <div className="flex items-center gap-3">
+                    <p className="text-gray-600 leading-relaxed italic flex-1">"{lang === 'bn' ? t.text_bn : t.text_en}"</p>
+                    <div className="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
                       <div className="w-10 h-10 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red font-semibold text-sm">
                         {t.name.charAt(0)}
                       </div>
@@ -239,13 +239,13 @@ export function HomePage() {
       )}
 
       {/* Why Choose Us */}
-      <section className="py-24 max-w-7xl mx-auto px-4">
+      <section className="py-16 max-w-7xl mx-auto px-4">
         <RevealSection>
-          <h2 className="text-4xl md:text-5xl font-poppins font-bold text-center mb-4">Why Choose Us</h2>
+          <h2 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">Why Choose Us</h2>
           <div className="section-divider" />
         </RevealSection>
 
-        <div className="grid md:grid-cols-4 gap-8 mt-12">
+        <div className="grid md:grid-cols-4 gap-6 mt-10">
           {[
             { icon: '🏆', title: 'BRTA Approved', desc: 'Govt. registered training center with official certification' },
             { icon: '👨‍🏫', title: 'Expert Instructors', desc: '5+ years experienced trainers for all course types' },
@@ -253,9 +253,9 @@ export function HomePage() {
             { icon: '🎯', title: 'High Success Rate', desc: `${settings.stat_success_rate || 95}% pass rate in BRTA tests` },
           ].map((item, i) => (
             <RevealSection key={i} delay={i * 100}>
-              <div className="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 text-center group">
-                <div className="text-5xl mb-5 group-hover:scale-110 transition-transform duration-300 inline-block">{item.icon}</div>
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <div className="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center group h-full flex flex-col items-center justify-center">
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.icon}</div>
+                <h3 className="text-base font-semibold mb-1.5">{item.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
               </div>
             </RevealSection>
@@ -264,7 +264,7 @@ export function HomePage() {
       </section>
 
       {/* CTA Banner */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-brand-red to-brand-red-light" />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 border border-white rounded-full" />

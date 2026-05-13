@@ -31,14 +31,14 @@ export function CoursesPage() {
   const lang = i18n.language === 'bn' ? 'bn' : 'en'
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <Section>
-        <h1 className="text-4xl md:text-5xl font-poppins font-bold text-center mb-4">{t('courses.title')}</h1>
+        <h1 className="text-3xl md:text-4xl font-poppins font-bold text-center mb-3">{t('courses.title')}</h1>
         <div className="section-divider" />
       </Section>
 
       <Section delay={100}>
-        <div className="flex flex-wrap gap-3 justify-center mt-10 mb-12">
+        <div className="flex flex-wrap gap-3 justify-center mt-8 mb-10">
           {categories.map(cat => (
             <button key={cat} onClick={() => setFilter(cat)}
               className={`group relative flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-400 overflow-hidden ${
@@ -63,25 +63,25 @@ export function CoursesPage() {
           <p className="text-lg">No courses found in this category</p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((course, i) => (
             <Section key={course.id} delay={i * 100}>
-              <div className="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100 group relative overflow-hidden">
+              <div className="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 group relative overflow-hidden h-full flex flex-col">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-brand-red/5 rounded-bl-[100px] group-hover:bg-brand-red/10 transition-colors duration-500" />
-                <div className="relative">
-                  <div className="text-5xl mb-5">{course.icon || '🚗'}</div>
-                  <h2 className="text-xl font-semibold mb-2 group-hover:text-brand-red transition-colors">
+                <div className="relative flex flex-col h-full">
+                  <div className="text-4xl mb-4">{course.icon || '🚗'}</div>
+                  <h2 className="text-lg font-semibold mb-2 group-hover:text-brand-red transition-colors">
                     {lang === 'bn' ? course.name_bn : course.name_en}
                   </h2>
-                  <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500 mb-4">
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-50 rounded-full"><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{course.duration_en}</span>
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-50 rounded-full"><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{course.fee}</span>
+                  <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 mb-3">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-50 rounded-full"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{course.duration_en}</span>
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-50 rounded-full"><svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{course.fee}</span>
                   </div>
-                  <p className="text-gray-600 text-sm mb-6 leading-relaxed">{lang === 'bn' ? course.description_bn : course.description_en}</p>
-                  <Link to="/enroll" className="group/btn relative inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-brand-red to-brand-red-light text-white rounded-xl text-sm font-semibold overflow-hidden transition-all duration-500 shadow-lg shadow-brand-red/25 hover:shadow-xl hover:shadow-brand-red/40 hover:scale-105 active:scale-95">
+                  <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4">{lang === 'bn' ? course.description_bn : course.description_en}</p>
+                  <Link to="/enroll" className="group/btn relative inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-red to-brand-red-light text-white rounded-xl text-sm font-semibold overflow-hidden transition-all duration-500 shadow-md shadow-brand-red/25 hover:shadow-lg hover:shadow-brand-red/40 hover:scale-105 active:scale-95 self-start">
                     <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
                     <span className="relative">{t('courses.enroll')}</span>
-                    <svg className="relative w-4 h-4 transition-all duration-300 group-hover/btn:translate-x-1 group-hover/btn:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                    <svg className="relative w-3.5 h-3.5 transition-all duration-300 group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                   </Link>
                 </div>
               </div>
