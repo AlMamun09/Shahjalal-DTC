@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { supabase } from '../lib/supabase'
 
 const navLinks = [
   { path: '/', key: 'nav.home' },
@@ -14,6 +15,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const { t, i18n } = useTranslation()
   const location = useLocation()
 
@@ -21,6 +23,16 @@ export function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAdmin(!!session)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdmin(!!session)
+    })
+    return () => subscription.unsubscribe()
   }, [])
 
   const toggleLang = () => {
@@ -50,6 +62,14 @@ export function Navbar() {
               {t(link.key)}
             </Link>
           ))}
+          {isAdmin && (
+            <Link to="/admin"
+              className="px-3 py-2 rounded-lg text-sm font-medium text-brand-gold hover:bg-brand-gold/10 transition-all duration-300 flex items-center gap-1.5"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+              Dashboard
+            </Link>
+          )}
           <div className="w-px h-6 bg-white/20 mx-2" />
           <button onClick={toggleLang} className="text-sm px-3 py-1.5 border border-white/30 rounded-lg hover:bg-white/10 transition-all duration-300 hover:border-white/50">
             {i18n.language === 'bn' ? 'English' : 'বাংলা'}
@@ -61,6 +81,11 @@ export function Navbar() {
 
         {/* Mobile Toggle */}
         <div className="md:hidden flex items-center gap-2">
+          {isAdmin && (
+            <Link to="/admin" className="text-brand-gold text-xs px-2 py-1 border border-brand-gold/30 rounded-lg">
+              Admin
+            </Link>
+          )}
           <button onClick={toggleLang} className="text-xs px-2 py-1 border border-white/30 rounded-lg">
             {i18n.language === 'bn' ? 'EN' : 'বাংলা'}
           </button>
@@ -88,6 +113,12 @@ export function Navbar() {
                 {t(link.key)}
               </Link>
             ))}
+            {isAdmin && (
+              <Link to="/admin" onClick={() => setMobileOpen(false)}
+                className="block px-4 py-3 rounded-xl text-sm font-medium text-brand-gold bg-brand-gold/10">
+                Dashboard
+              </Link>
+            )}
             <Link to="/enroll" onClick={() => setMobileOpen(false)}
               className="block px-4 py-3 bg-brand-red text-white rounded-xl text-sm font-semibold text-center mt-2 shadow-lg shadow-brand-red/30">
               {t('nav.enroll')}

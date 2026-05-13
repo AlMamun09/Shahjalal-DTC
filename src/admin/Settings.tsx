@@ -66,7 +66,7 @@ export function AdminSettings() {
         </div>
       </div>
 
-      <form onSubmit={handleSave} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 max-w-4xl">
+      <form onSubmit={handleSave} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SETTING_KEYS.map(key => (
             <div key={key}>

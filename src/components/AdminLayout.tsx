@@ -16,16 +16,9 @@ const navItems = [
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const { logout } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const handleLogout = async () => {
     await logout()
@@ -39,14 +32,15 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         <div className="fixed inset-0 bg-black/50 z-20 lg:hidden animate-fade-in" onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar - fixed, full height, scrollable */}
       <aside className={`
-        fixed lg:static inset-y-0 left-0 z-30 w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white
-        transform transition-all duration-300 ease-out
+        fixed inset-y-0 left-0 z-30 w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white
+        transform transition-all duration-300 ease-out flex flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         ${sidebarOpen ? 'shadow-2xl' : ''}
       `}>
-        <div className="p-5 border-b border-white/10">
+        {/* Logo area - fixed at top */}
+        <div className="p-5 border-b border-white/10 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-gradient-to-br from-brand-red to-brand-red-light rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-brand-red/30">
               S
@@ -57,7 +51,9 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </div>
-        <nav className="p-3 space-y-1">
+
+        {/* Nav items - scrollable */}
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {navItems.map(item => {
             const active = location.pathname === item.path
             return (
@@ -80,19 +76,28 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
             )
           })}
         </nav>
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="text-xs text-white/20 text-center">
-            v1.0.0
-          </div>
+
+        {/* Bottom actions - fixed at bottom */}
+        <div className="border-t border-white/10 p-3 space-y-1 shrink-0">
+          <Link to="/"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/60 hover:text-white hover:bg-white/5 transition-all duration-300"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            <span>View Site</span>
+          </Link>
+          <button onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/60 hover:text-white hover:bg-white/5 transition-all duration-300"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            <span>Logout</span>
+          </button>
         </div>
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col min-h-screen lg:ml-64">
         {/* Top bar */}
-        <header className={`sticky top-0 z-10 transition-all duration-300 ${
-          scrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm' : 'bg-white'
-        }`}>
+        <header className="bg-white border-b border-gray-200">
           <div className="px-4 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-2 hover:bg-gray-100 rounded-xl transition-colors">
@@ -100,21 +105,12 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
-              <h1 className="text-lg font-inter font-semibold text-gray-800 hidden sm:block">
+              <h1 className="text-lg font-inter font-semibold text-gray-800">
                 {navItems.find(n => n.path === location.pathname)?.label || 'Admin'}
               </h1>
             </div>
-            <div className="flex items-center gap-2">
-              <a href="/" target="_blank"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm text-brand-red bg-brand-red/5 hover:bg-brand-red/10 rounded-xl transition-all duration-300 font-medium hover:shadow-sm hover:shadow-brand-red/10">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                <span className="hidden sm:inline">View Site</span>
-              </a>
-              <button onClick={handleLogout}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-all duration-300 font-medium hover:shadow-sm">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-                <span>Logout</span>
-              </button>
+            <div className="text-sm text-gray-400">
+              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </div>
           </div>
         </header>

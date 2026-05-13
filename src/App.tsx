@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ScrollToTop } from './components/ScrollToTop'
 import { AdminRoute } from './components/AdminRoute'
 import { AdminLayout } from './components/AdminLayout'
 import { AdminLogin } from './admin/Login'
@@ -28,6 +29,7 @@ function AdminWrapper({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         {/* Public routes */}
         <Route element={<PublicLayout />}>
