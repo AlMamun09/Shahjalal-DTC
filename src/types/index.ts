@@ -93,3 +93,50 @@ export interface GalleryVideo {
   youtube_url: string
   sort_order: number
 }
+
+export interface BlogPost {
+  id: string
+  slug: string
+  title_bn: string
+  title_en: string
+  excerpt_bn: string
+  excerpt_en: string
+  content_bn: string
+  content_en: string
+  image_url: string
+  author: string
+  category: string
+  tags: string[]
+  published: boolean
+  created_at: string
+}
+
+export interface Service {
+  id: string
+  title_bn: string
+  title_en: string
+  desc_bn: string
+  desc_en: string
+  icon: string
+  sort_order: number
+}
+
+export interface Facility {
+  id: string
+  title_bn: string
+  title_en: string
+  desc_bn: string
+  desc_en: string
+  icon: string
+  sort_order: number
+}
+
+export interface Certificate {
+  id: string
+  student_name: string
+  certificate_no: string
+  course_name: string
+  issue_date: string
+  dob: string
+  is_valid: boolean
+}

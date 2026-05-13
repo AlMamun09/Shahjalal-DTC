@@ -21,6 +21,9 @@ import { AboutPage } from './pages/About'
 import { GalleryPage } from './pages/Gallery'
 import { ContactPage } from './pages/Contact'
 import { EnrollPage } from './pages/Enroll'
+import { BlogPage } from './pages/Blog'
+import { LicensePage } from './pages/License'
+import { CertificateCheckPage } from './pages/CertificateCheck'
 
 function AdminWrapper({ children }: { children: React.ReactNode }) {
   return <AdminRoute><AdminLayout>{children}</AdminLayout></AdminRoute>
@@ -41,6 +44,9 @@ export default function App() {
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/enroll" element={<EnrollPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/license" element={<LicensePage />} />
+          <Route path="/certificate-check" element={<CertificateCheckPage />} />
         </Route>
 
         {/* Admin routes */}
