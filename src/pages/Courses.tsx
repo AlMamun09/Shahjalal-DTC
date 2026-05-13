@@ -41,14 +41,17 @@ export function CoursesPage() {
         <div className="flex flex-wrap gap-3 justify-center mt-10 mb-12">
           {categories.map(cat => (
             <button key={cat} onClick={() => setFilter(cat)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+              className={`group relative flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-400 overflow-hidden ${
                 filter === cat
-                  ? 'bg-brand-red text-white shadow-lg shadow-brand-red/30 scale-105'
-                  : 'bg-white text-gray-700 border border-gray-200 hover:border-brand-red hover:text-brand-red shadow-sm hover:shadow-md'
+                  ? 'bg-gradient-to-r from-brand-red to-brand-red-light text-white shadow-xl shadow-brand-red/30 scale-105 ring-2 ring-brand-red/20'
+                  : 'bg-white text-gray-600 border border-gray-200 hover:border-brand-red/30 hover:text-brand-red shadow-sm hover:shadow-lg hover:-translate-y-0.5'
               }`}
             >
-              <span>{catIcons[cat]}</span>
-              {t(`courses.${cat}`)}
+              <span className={`transition-transform duration-300 ${filter === cat ? 'scale-110' : 'group-hover:scale-110'}`}>{catIcons[cat]}</span>
+              <span>{t(`courses.${cat}`)}</span>
+              {filter === cat && (
+                <span className="absolute inset-0 rounded-xl animate-pulse ring-2 ring-white/20" />
+              )}
             </button>
           ))}
         </div>
@@ -75,9 +78,10 @@ export function CoursesPage() {
                     <span className="inline-flex items-center gap-1 px-3 py-1 bg-gray-50 rounded-full"><svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{course.fee}</span>
                   </div>
                   <p className="text-gray-600 text-sm mb-6 leading-relaxed">{lang === 'bn' ? course.description_bn : course.description_en}</p>
-                  <Link to="/enroll" className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-red text-white rounded-xl text-sm font-semibold hover:bg-brand-red-light transition-all duration-300 shadow-md shadow-brand-red/20 hover:shadow-lg hover:shadow-brand-red/30 group/btn">
-                    {t('courses.enroll')}
-                    <svg className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  <Link to="/enroll" className="group/btn relative inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-brand-red to-brand-red-light text-white rounded-xl text-sm font-semibold overflow-hidden transition-all duration-500 shadow-lg shadow-brand-red/25 hover:shadow-xl hover:shadow-brand-red/40 hover:scale-105 active:scale-95">
+                    <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
+                    <span className="relative">{t('courses.enroll')}</span>
+                    <svg className="relative w-4 h-4 transition-all duration-300 group-hover/btn:translate-x-1 group-hover/btn:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                   </Link>
                 </div>
               </div>
