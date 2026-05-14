@@ -35,52 +35,52 @@ export function AdminTestimonialsManager() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-poppins font-bold">Testimonials</h1>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+        <h1 className="text-2xl font-bold text-white">Testimonials</h1>
         <button onClick={() => setShowForm(!showForm)}
-          className="px-4 py-2 bg-brand-red text-white rounded-lg font-medium hover:bg-red-700">
+          className="w-full sm:w-auto px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl text-xs sm:text-sm font-medium hover:shadow-lg hover:shadow-orange-500/30 transition-all text-center">
           {showForm ? 'Cancel' : 'Add Testimonial'}
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl p-6 shadow-sm mb-6 max-w-2xl space-y-4">
-          <div><label className="block text-sm font-medium">Name</label>
+        <form onSubmit={handleSubmit} className="bg-[#111827] rounded-xl p-6 shadow-sm border border-white/[0.06] mb-6 max-w-2xl space-y-4">
+          <div><label className="block text-sm font-medium text-gray-300">Name</label>
             <input required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
-              className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" /></div>
-          <div><label className="block text-sm font-medium">Rating (1-5)</label>
+              className="w-full px-3 py-2 bg-[#374151] border border-white/[0.06] rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white" /></div>
+          <div><label className="block text-sm font-medium text-gray-300">Rating (1-5)</label>
             <select value={form.rating} onChange={e => setForm({ ...form, rating: Number(e.target.value) })}
-              className="w-full px-3 py-2 border rounded-lg outline-none">
+              className="w-full px-3 py-2 bg-[#374151] border border-white/[0.06] rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white">
               {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n}</option>)}
             </select></div>
-          <div><label className="block text-sm font-medium">Text (Bangla)</label>
+          <div><label className="block text-sm font-medium text-gray-300">Text (Bangla)</label>
             <textarea value={form.text_bn} onChange={e => setForm({ ...form, text_bn: e.target.value })}
-              className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" rows={2} /></div>
-          <div><label className="block text-sm font-medium">Text (English)</label>
+              className="w-full px-3 py-2 bg-[#374151] border border-white/[0.06] rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white" rows={2} /></div>
+          <div><label className="block text-sm font-medium text-gray-300">Text (English)</label>
             <textarea value={form.text_en} onChange={e => setForm({ ...form, text_en: e.target.value })}
-              className="w-full px-3 py-2 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" rows={2} /></div>
-          <button type="submit" className="px-6 py-2 bg-brand-red text-white rounded-lg font-medium hover:bg-red-700">Add</button>
+              className="w-full px-3 py-2 bg-[#374151] border border-white/[0.06] rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white" rows={2} /></div>
+          <button type="submit" className="px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-orange-500/30">Add</button>
         </form>
       )}
 
-      <div className="space-y-4">
+      <div className="grid md:grid-cols-2 gap-4">
         {testimonials.map(t => (
-          <div key={t.id} className="bg-white rounded-xl p-4 shadow-sm flex items-start justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-semibold">{t.name}</span>
-                <span className="text-brand-gold">{'★'.repeat(t.rating)}</span>
+          <div key={t.id} className="bg-[#111827] rounded-xl p-5 border border-white/[0.06] flex flex-col sm:flex-row items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <span className="font-semibold text-white">{t.name}</span>
+                <span className="text-orange-400">{'★'.repeat(t.rating)}</span>
                 <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                  t.is_visible ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
+                  t.is_visible ? 'bg-emerald-500/10 text-emerald-400' : 'bg-gray-500/10 text-gray-400'
                 }`}>{t.is_visible ? 'Visible' : 'Hidden'}</span>
               </div>
-              <p className="text-sm text-gray-600">{t.text_en || t.text_bn}</p>
+              <p className="text-sm text-gray-400 line-clamp-2">{t.text_en || t.text_bn}</p>
             </div>
-            <div className="flex gap-2">
-              <button onClick={() => toggleVisible(t.id, t.is_visible)} className="text-sm text-brand-red hover:underline">
+            <div className="flex sm:flex-col gap-2 w-full sm:w-auto">
+              <button onClick={() => toggleVisible(t.id, t.is_visible)} className="flex-1 sm:flex-none px-3 py-1.5 bg-white/[0.04] text-gray-400 rounded-xl text-xs font-medium hover:bg-white/[0.08] transition-all text-center">
                 {t.is_visible ? 'Hide' : 'Show'}
               </button>
-              <button onClick={() => deleteTestimonial(t.id)} className="text-sm text-red-600 hover:underline">Delete</button>
+              <button onClick={() => deleteTestimonial(t.id)} className="flex-1 sm:flex-none px-3 py-1.5 bg-red-500/10 text-red-400 rounded-xl text-xs font-medium hover:bg-red-500/20 transition-all text-center">Delete</button>
             </div>
           </div>
         ))}

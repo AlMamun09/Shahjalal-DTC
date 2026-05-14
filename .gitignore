@@ -7,19 +7,42 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+.pnp
+.pnp.js
+
+# Build output
 dist
 dist-ssr
 *.local
-.env
 
-# Editor directories and files
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# Supabase
+supabase/.temp
+
+# Opencode
+.opencode/node_modules

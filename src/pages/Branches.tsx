@@ -5,9 +5,9 @@ import { supabase } from '../lib/supabase'
 import { useReveal } from '../hooks/useReveal'
 import type { Branch } from '../types'
 
-function Section({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+function Section({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
   const { ref, visible } = useReveal()
-  return <div ref={ref} className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>
+  return <div ref={ref} className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${className}`} style={{ transitionDelay: `${delay}ms` }}>{children}</div>
 }
 
 export function BranchesPage() {
@@ -24,36 +24,36 @@ export function BranchesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
       <Section>
-        <h1 className="text-4xl md:text-5xl font-poppins font-bold text-center mb-4">{t('branches.title')}</h1>
+        <h1 className="text-4xl md:text-5xl font-heading font-bold text-center mb-4 text-white">{t('branches.title')}</h1>
         <div className="section-divider" />
       </Section>
 
       <div className="grid md:grid-cols-2 gap-10 mt-12">
         {branches.map((branch, i) => (
-          <Section key={branch.id} delay={i * 150}>
-            <div className="card-hover bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group">
+          <Section key={branch.id} delay={i * 150} className="h-full">
+            <div className="card-hover bg-[#1F2937] rounded-2xl shadow-sm border border-white/[0.06] overflow-hidden h-full flex flex-col group">
               {branch.photo_url ? (
-                <img src={branch.photo_url} alt="" className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={branch.photo_url} alt="" className="w-full h-56 object-cover shrink-0 group-hover:scale-105 transition-transform duration-700" />
               ) : (
-                <div className="w-full h-56 bg-gradient-to-br from-brand-red/10 to-brand-gold/10 flex items-center justify-center">
+                <div className="w-full h-56 shrink-0 bg-gradient-to-br from-orange-500/10 to-orange-400/10 flex items-center justify-center">
                   <span className="text-6xl">📍</span>
                 </div>
               )}
-              <div className="p-8">
-                <h2 className="text-2xl font-semibold mb-3 group-hover:text-brand-red transition-colors">
+              <div className="p-8 flex flex-col flex-1">
+                <h2 className="text-2xl font-semibold mb-3 text-white group-hover:text-orange-400 transition-colors">
                   {lang === 'bn' ? branch.name_bn : branch.name_en}
                 </h2>
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-gray-300 mb-6 leading-relaxed">
                   {lang === 'bn' ? branch.address_bn : branch.address_en}
                 </p>
 
                 <div className="space-y-4 mb-6">
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">Phone</p>
+                    <p className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-2">Phone</p>
                     <div className="flex flex-wrap gap-2">
                       {branch.phones.map(p => (
                         <a key={p} href={`tel:${p}`}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 rounded-lg text-sm text-brand-red hover:bg-brand-red hover:text-white transition-all duration-300 font-medium">
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#374151] rounded-lg text-sm text-orange-400 hover:bg-orange-500 hover:text-white transition-all duration-300 font-medium">
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                           {p}
                         </a>
@@ -69,7 +69,7 @@ export function BranchesPage() {
                     {t('branches.whatsapp')}
                   </a>
                   <Link to={`/branches/${branch.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-brand-red text-brand-red rounded-xl text-sm font-semibold hover:bg-brand-red hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-brand-red/20 hover:scale-105">
+                    className="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-orange-500/30 text-orange-400 rounded-xl text-sm font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20 hover:scale-105">
                     {t('branches.view_map')}
                   </Link>
                 </div>

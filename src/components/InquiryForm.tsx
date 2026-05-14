@@ -48,8 +48,8 @@ export function InquiryForm({ preselectedBranch }: Props) {
 
   if (submitted) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-        <p className="text-success-green font-semibold text-lg">{t('enroll.success')}</p>
+      <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-6 text-center">
+        <p className="text-green-400 font-semibold text-lg">{t('enroll.success')}</p>
       </div>
     )
   }
@@ -58,36 +58,35 @@ export function InquiryForm({ preselectedBranch }: Props) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <input {...register('name')} placeholder={t('enroll.name')}
-          className="w-full px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" />
-        {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name.message}</p>}
+          className="w-full px-4 py-3 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400 transition-all" />
+        {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name.message}</p>}
       </div>
       <div>
         <input {...register('phone')} placeholder={t('enroll.phone')}
-          className="w-full px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" />
-        {errors.phone && <p className="text-red-600 text-sm mt-1">{errors.phone.message}</p>}
+          className="w-full px-4 py-3 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400 transition-all" />
+        {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone.message}</p>}
       </div>
       <div>
         <input {...register('email')} placeholder={t('enroll.email')}
-          className="w-full px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" />
+          className="w-full px-4 py-3 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400 transition-all" />
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <select {...register('branch_pref')} className="px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red">
+        <select {...register('branch_pref')} className="px-4 py-3 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white transition-all">
           <option value="">{t('enroll.branch')}</option>
           {branches.map(b => <option key={b.id} value={b.slug}>{b.name_en}</option>)}
         </select>
-        <select {...register('course_interest')} className="px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red">
+        <select {...register('course_interest')} className="px-4 py-3 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white transition-all">
           <option value="">{t('enroll.course')}</option>
           {courses.map(c => <option key={c.id} value={c.name_en}>{c.name_en}</option>)}
         </select>
       </div>
       <div>
         <textarea {...register('message')} placeholder={t('enroll.message')} rows={3}
-          className="w-full px-4 py-3 border rounded-lg outline-none focus:ring-2 focus:ring-brand-red" />
+          className="w-full px-4 py-3 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400 transition-all" />
       </div>
-      {/* Honeypot spam protection */}
       <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
       <button type="submit"
-        className="w-full py-3 bg-brand-red text-white rounded-lg font-semibold hover:bg-red-700 transition-colors text-lg">
+        className="w-full py-3 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-orange-500/30 transition-all text-lg">
         {t('enroll.submit')}
       </button>
     </form>

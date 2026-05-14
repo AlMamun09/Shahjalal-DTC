@@ -22,7 +22,6 @@ export function BranchDetailPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      {/* JSON-LD structured data */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
@@ -40,13 +39,13 @@ export function BranchDetailPage() {
 
       <div className="grid lg:grid-cols-2 gap-10">
         <div>
-          <h1 className="text-3xl font-poppins font-bold mb-4">{lang === 'bn' ? branch.name_bn : branch.name_en}</h1>
-          <p className="text-gray-600 mb-6">{lang === 'bn' ? branch.address_bn : branch.address_en}</p>
+          <h1 className="text-3xl font-heading font-bold mb-4 text-white">{lang === 'bn' ? branch.name_bn : branch.name_en}</h1>
+          <p className="text-gray-300 mb-6">{lang === 'bn' ? branch.address_bn : branch.address_en}</p>
 
           <div className="space-y-3 mb-6">
-            <p className="font-semibold">{t('branches.title')}:</p>
+            <p className="font-semibold text-white">{t('branches.title')}:</p>
             {branch.phones.map(p => (
-              <a key={p} href={`tel:${p}`} className="block text-brand-red hover:underline text-lg">{p}</a>
+              <a key={p} href={`tel:${p}`} className="block text-orange-400 hover:underline text-lg">{p}</a>
             ))}
           </div>
 
@@ -63,8 +62,10 @@ export function BranchDetailPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold mb-6">{t('enroll.title')}</h2>
-          <InquiryForm preselectedBranch={branch.slug} />
+          <h2 className="text-2xl font-semibold mb-6 text-white">{t('enroll.title')}</h2>
+          <div className="bg-[#1F2937] rounded-2xl p-8 shadow-sm border border-orange-500/10">
+            <InquiryForm preselectedBranch={branch.slug} />
+          </div>
         </div>
       </div>
     </div>

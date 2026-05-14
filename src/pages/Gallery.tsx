@@ -14,6 +14,7 @@ export function GalleryPage() {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([])
   const [videos, setVideos] = useState<GalleryVideo[]>([])
   const [lightbox, setLightbox] = useState<string | null>(null)
+  const [tab, setTab] = useState<'photos' | 'videos'>('photos')
 
   useEffect(() => {
     supabase.from('gallery_photos').select('*').order('sort_order').then(({ data }) => {
@@ -32,14 +33,33 @@ export function GalleryPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-16">
       <Section>
-        <h1 className="text-4xl md:text-5xl font-poppins font-bold text-center mb-4">{t('gallery.title')}</h1>
+        <h1 className="text-4xl md:text-5xl font-heading font-bold text-center mb-4 text-white">{t('gallery.title')}</h1>
         <div className="section-divider" />
       </Section>
 
-      {photos.length > 0 && (
-        <div className="mb-16 mt-12">
+      {(photos.length > 0 || videos.length > 0) && (
+        <Section delay={80}>
+          <div className="flex justify-center gap-3 mt-10 mb-10">
+            {photos.length > 0 && (
+              <button onClick={() => setTab('photos')}
+                className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all ${tab === 'photos' ? 'bg-orange-500 text-white shadow-md' : 'bg-[#374151] text-gray-300 hover:bg-orange-500/20 hover:text-orange-400'}`}>
+                {t('gallery.photos')} ({photos.length})
+              </button>
+            )}
+            {videos.length > 0 && (
+              <button onClick={() => setTab('videos')}
+                className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all ${tab === 'videos' ? 'bg-orange-500 text-white shadow-md' : 'bg-[#374151] text-gray-300 hover:bg-orange-500/20 hover:text-orange-400'}`}>
+                {t('gallery.videos')} ({videos.length})
+              </button>
+            )}
+          </div>
+        </Section>
+      )}
+
+      {tab === 'photos' && photos.length > 0 && (
+        <div>
           <Section delay={100}>
-            <h2 className="text-2xl font-semibold mb-8">{t('gallery.photos')}</h2>
+            <h2 className="text-2xl font-semibold mb-8 text-white">{t('gallery.photos')}</h2>
           </Section>
           <div className="columns-2 md:columns-3 gap-4 space-y-4">
             {photos.map((photo, i) => (
@@ -56,10 +76,10 @@ export function GalleryPage() {
         </div>
       )}
 
-      {videos.length > 0 && (
+      {tab === 'videos' && videos.length > 0 && (
         <div>
           <Section>
-            <h2 className="text-2xl font-semibold mb-8">{t('gallery.videos')}</h2>
+            <h2 className="text-2xl font-semibold mb-8 text-white">{t('gallery.videos')}</h2>
           </Section>
           <div className="grid md:grid-cols-2 gap-8">
             {videos.map((video, i) => {
@@ -77,7 +97,13 @@ export function GalleryPage() {
         </div>
       )}
 
-      {/* Lightbox */}
+      {tab === 'photos' && photos.length === 0 && (
+        <p className="text-center text-gray-500 mt-10">No photos yet.</p>
+      )}
+      {tab === 'videos' && videos.length === 0 && (
+        <p className="text-center text-gray-500 mt-10">No videos yet.</p>
+      )}
+
       {lightbox && (
         <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 animate-fade-in" onClick={() => setLightbox(null)}>
           <button onClick={() => setLightbox(null)} className="absolute top-4 right-4 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">

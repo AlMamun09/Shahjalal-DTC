@@ -31,6 +31,11 @@ export interface Course {
   icon: string
   is_active: boolean
   sort_order: number
+  price_bdt?: number
+  practical_classes?: number
+  auto_classes?: number
+  theory_classes?: number
+  image_url?: string
 }
 
 export interface Lead {
@@ -64,6 +69,7 @@ export interface Instructor {
   experience: string
   specialization: string
   photo_url: string
+  sort_order: number
   is_active: boolean
 }
 
@@ -119,6 +125,7 @@ export interface Service {
   desc_en: string
   icon: string
   sort_order: number
+  is_active: boolean
 }
 
 export interface Facility {
@@ -129,6 +136,7 @@ export interface Facility {
   desc_en: string
   icon: string
   sort_order: number
+  is_active: boolean
 }
 
 export interface Certificate {
@@ -139,4 +147,10 @@ export interface Certificate {
   issue_date: string
   dob: string
   is_valid: boolean
+}
+
+export interface PageView {
+  id: number
+  page: string
+  viewed_at: string
 }
