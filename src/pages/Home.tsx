@@ -81,7 +81,7 @@ export function HomePage() {
             </div>
           </Section>
           <Section delay={100}>
-            <h1 className={`${lang === 'bn' ? 'font-bangla leading-[1.4] pt-1' : 'font-heading leading-[1.5] pt-4'} font-bold mb-6 text-5xl md:text-7xl tracking-wide text-white`}>
+            <h1 className={`${lang === 'bn' ? 'font-bangla leading-[1.4] pt-1' : 'font-heading leading-[1.5] pt-4 text-nowrap'} font-bold mb-6 text-5xl md:text-7xl tracking-wide text-white`}>
               {lang === 'bn'
                 ? (settings.hero_title_bn || 'শাহজালাল ড্রাইভিং ট্রেনিং সেন্টার').split(' ').map((word, i) =>
                     word === 'ড্রাইভিং' ? <span key={i} className="text-gradient inline-block">ড্রাইভিং </span> : word + ' '
