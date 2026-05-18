@@ -96,7 +96,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <div className="flex-1 flex flex-col min-h-screen lg:ml-64">
+      <div className="flex-1 flex flex-col min-h-screen min-w-0 lg:ml-64">
         <header className="bg-[#0F172A] border-b border-white/[0.06]">
           <div className="px-4 lg:px-8 h-16 flex items-center justify-between">
             <div className="flex items-center gap-4">

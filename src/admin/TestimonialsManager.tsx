@@ -35,10 +35,10 @@ export function AdminTestimonialsManager() {
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
+      <div className="flex items-start justify-between mb-6 gap-3">
         <h1 className="text-2xl font-bold text-white">Testimonials</h1>
         <button onClick={() => setShowForm(!showForm)}
-          className="w-full sm:w-auto px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl text-xs sm:text-sm font-medium hover:shadow-lg hover:shadow-orange-500/30 transition-all text-center">
+          className="px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl text-xs sm:text-sm font-medium hover:shadow-lg hover:shadow-orange-500/30 transition-all shrink-0">
           {showForm ? 'Cancel' : 'Add Testimonial'}
         </button>
       </div>

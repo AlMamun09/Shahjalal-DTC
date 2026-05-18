@@ -57,19 +57,20 @@ export function Navbar() {
               {t(link.key)}
             </Link>
           ))}
-          {isAdmin && (
-            <Link to="/admin" className="px-4 py-2 rounded-lg text-sm font-medium text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all flex items-center gap-1.5">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
-              Dashboard
-            </Link>
-          )}
           <div className="w-px h-6 bg-gray-200 dark:bg-white/20 mx-3" />
           <Link to="/enroll" className="btn-shine bg-gradient-energy text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:shadow-lg hover:shadow-orange-500/40 transition-all ml-3 glow-orange-hover">
             {t('nav.apply')}
           </Link>
+          {isAdmin && (
+            <Link to="/admin" className="ml-3 px-4 py-2 rounded-lg text-sm font-medium text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all flex items-center gap-1.5">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+              Dashboard
+            </Link>
+          )}
         </div>
 
         <div className="lg:hidden flex items-center gap-2">
+          <Link to="/enroll" className="bg-gradient-energy text-white text-xs px-3 py-1.5 rounded-lg font-bold shadow-md shadow-orange-500/20">{t('nav.apply')}</Link>
           {isAdmin && <Link to="/admin" className="text-orange-500 text-xs px-2 py-1 border border-orange-300 dark:border-orange-500/30 rounded-lg">Admin</Link>}
           <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 hover:bg-gray-100 dark:hover:bg-white/10 rounded-lg transition-colors text-gray-600 dark:text-gray-400" aria-label="Toggle menu">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,8 +93,8 @@ export function Navbar() {
                 {t(link.key)}
               </Link>
             ))}
-            {isAdmin && <Link to="/admin" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-xl text-sm font-medium text-orange-500 bg-orange-50 dark:bg-orange-500/10">Dashboard</Link>}
             <Link to="/enroll" onClick={() => setMobileOpen(false)} className="block px-4 py-3 bg-gradient-energy text-white rounded-xl text-sm font-bold text-center mt-2 shadow-lg shadow-orange-500/30">{t('nav.apply')}</Link>
+            {isAdmin && <Link to="/admin" onClick={() => setMobileOpen(false)} className="block px-4 py-3 rounded-xl text-sm font-medium text-orange-500 bg-orange-50 dark:bg-orange-500/10">Dashboard</Link>}
           </div>
         </div>
       )}

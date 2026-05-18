@@ -70,9 +70,9 @@ export function AdminBlogManager() {
 
   return (
     <div className="animate-fade-in">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
-        <div><h1 className="text-2xl font-bold text-white">Blog Manager</h1><p className="text-sm text-gray-400 mt-1">Create and manage blog posts</p></div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+      <div className="flex items-start justify-between mb-6 gap-3">
+        <div className="min-w-0"><h1 className="text-2xl font-bold text-white">Blog Manager</h1><p className="text-sm text-gray-400 mt-1">Create and manage blog posts</p></div>
+        <div className="flex flex-col gap-2 shrink-0">
           <Link to="/blog" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-3 py-2 bg-white/[0.06] text-gray-300 rounded-xl text-xs sm:text-sm font-medium hover:bg-white/[0.1] hover:text-white transition-all border border-white/[0.06]"
           >

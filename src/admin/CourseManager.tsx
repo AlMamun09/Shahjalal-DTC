@@ -91,9 +91,9 @@ export function AdminCourseManager() {
 
   return (
     <div className="animate-fade-in">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
-        <div><h1 className="text-2xl font-bold text-white">Course Manager</h1><p className="text-sm text-gray-400 mt-1">Add, edit, reorder, or delete courses</p></div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+      <div className="flex items-start justify-between mb-6 gap-3">
+        <div className="min-w-0"><h1 className="text-2xl font-bold text-white">Course Manager</h1><p className="text-sm text-gray-400 mt-1">Add, edit, reorder, or delete courses</p></div>
+        <div className="flex flex-col gap-2 shrink-0">
           <Link to="/courses" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-3 py-2 bg-white/[0.06] text-gray-300 rounded-xl text-xs sm:text-sm font-medium hover:bg-white/[0.1] hover:text-white transition-all border border-white/[0.06]"
           >
@@ -109,7 +109,7 @@ export function AdminCourseManager() {
 
       {showForm && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-start justify-center p-4 pt-12 overflow-y-auto" onClick={() => setShowForm(false)}>
-          <div className="bg-[#111827] rounded-2xl p-6 w-full max-w-3xl shadow-2xl animate-scale-in max-h-[90vh] overflow-y-auto border border-white/[0.06]" onClick={e => e.stopPropagation()}>
+          <div className="bg-[#111827] rounded-2xl p-4 sm:p-6 w-full max-w-3xl shadow-2xl animate-scale-in max-h-[90vh] overflow-y-auto border border-white/[0.06]" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">{editingId ? 'Edit Course' : 'Add Course'}</h2>
               <button onClick={() => setShowForm(false)} className="p-2 hover:bg-orange-500/10 rounded-xl transition-colors text-gray-400">
@@ -118,7 +118,7 @@ export function AdminCourseManager() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label className="block text-sm font-medium text-gray-300 mb-1">Name (Bn)</label>
                   <input required value={form.name_bn} onChange={e => setForm({ ...form, name_bn: e.target.value })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" /></div>
@@ -126,7 +126,7 @@ export function AdminCourseManager() {
                   <input required value={form.name_en} onChange={e => setForm({ ...form, name_en: e.target.value })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" /></div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label className="block text-sm font-medium text-gray-300 mb-1">Slug (leave blank for auto)</label>
                   <input value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" /></div>
@@ -150,7 +150,7 @@ export function AdminCourseManager() {
                   <input type="number" value={form.theory_classes} onChange={e => setForm({ ...form, theory_classes: Number(e.target.value) })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white" /></div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label className="block text-sm font-medium text-gray-300 mb-1">Duration (Bn)</label>
                   <input value={form.duration_bn} onChange={e => setForm({ ...form, duration_bn: e.target.value })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" /></div>
@@ -158,7 +158,7 @@ export function AdminCourseManager() {
                   <input value={form.duration_en} onChange={e => setForm({ ...form, duration_en: e.target.value })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" /></div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div><label className="block text-sm font-medium text-gray-300 mb-1">Fee (text)</label>
                   <input value={form.fee} onChange={e => setForm({ ...form, fee: e.target.value })}
                     className="w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-xl outline-none focus:ring-2 focus:ring-orange-500 text-white placeholder-gray-400" /></div>
@@ -188,11 +188,11 @@ export function AdminCourseManager() {
                 </label>
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <button type="submit" className="px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl font-medium transition-all shadow-lg shadow-orange-500/25 hover:shadow-xl hover:-translate-y-0.5">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button type="submit" className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl font-medium transition-all shadow-lg shadow-orange-500/25 hover:shadow-xl hover:-translate-y-0.5">
                   {editingId ? 'Update Course' : 'Create Course'}
                 </button>
-                <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2.5 bg-[#374151] text-gray-300 rounded-xl font-medium hover:bg-orange-500/10 transition-all">Cancel</button>
+                <button type="button" onClick={() => setShowForm(false)} className="w-full sm:w-auto px-6 py-2.5 bg-[#374151] text-gray-300 rounded-xl font-medium hover:bg-orange-500/10 transition-all">Cancel</button>
               </div>
             </form>
           </div>

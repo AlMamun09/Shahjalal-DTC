@@ -2,15 +2,32 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Branch } from '../types'
 
+const emptyBranch = { name_bn: '', name_en: '', address_bn: '', address_en: '', phones: [''] as string[], emails: [''] as string[], whatsapp: '', map_embed_url: '' }
+
 export function AdminBranchManager() {
   const [branches, setBranches] = useState<Branch[]>([])
   const [editing, setEditing] = useState<string | null>(null)
+  const [showCreate, setShowCreate] = useState(false)
+  const [createForm, setCreateForm] = useState(emptyBranch)
 
   useEffect(() => {
     supabase.from('branches').select('*').order('sort_order').then(({ data }) => {
       if (data) setBranches(data)
     })
   }, [])
+
+  const handleCreate = async () => {
+    const slug = createForm.name_en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+    if (!slug || !createForm.name_bn) return
+    await supabase.from('branches').insert({
+      ...createForm, slug, is_active: true, sort_order: branches.length
+    })
+    setCreateForm(emptyBranch)
+    setShowCreate(false)
+    supabase.from('branches').select('*').order('sort_order').then(({ data }) => {
+      if (data) setBranches(data)
+    })
+  }
 
   const handleSave = async (branch: Branch) => {
     await supabase.from('branches').update(branch).eq('id', branch.id)
@@ -44,9 +61,75 @@ export function AdminBranchManager() {
     setBranches(branches.map(b => b.id === branch.id ? { ...branch, emails: branch.emails.filter((_, idx) => idx !== i) } : b))
   }
 
+  const addCreatePhone = () => setCreateForm({ ...createForm, phones: [...createForm.phones, ''] })
+  const updateCreatePhone = (i: number, val: string) => { const p = [...createForm.phones]; p[i] = val; setCreateForm({ ...createForm, phones: p }) }
+  const removeCreatePhone = (i: number) => setCreateForm({ ...createForm, phones: createForm.phones.filter((_, idx) => idx !== i) })
+  const addCreateEmail = () => setCreateForm({ ...createForm, emails: [...createForm.emails, ''] })
+  const updateCreateEmail = (i: number, val: string) => { const e = [...createForm.emails]; e[i] = val; setCreateForm({ ...createForm, emails: e }) }
+  const removeCreateEmail = (i: number) => setCreateForm({ ...createForm, emails: createForm.emails.filter((_, idx) => idx !== i) })
+
+  const inputCls = "w-full px-3 py-2 bg-[#374151] border border-orange-500/10 rounded-lg outline-none focus:ring-2 focus:ring-orange-500 text-white"
+
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Branch Manager</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-white">Branch Manager</h1>
+        <button onClick={() => { setShowCreate(!showCreate); setCreateForm(emptyBranch) }}
+          className="px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-orange-500/30 transition-all">
+          {showCreate ? 'Cancel' : '+ Add Branch'}
+        </button>
+      </div>
+
+      {showCreate && (
+        <div className="bg-[#111827] rounded-[20px] p-6 border border-white/[0.06] shadow-xl shadow-black/20 mb-6">
+          <h2 className="text-lg font-semibold text-white mb-4">New Branch</h2>
+          <div className="space-y-4">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div><label className="block text-sm font-medium text-gray-300">Name (Bn)</label>
+                <input value={createForm.name_bn} onChange={e => setCreateForm({ ...createForm, name_bn: e.target.value })} className={inputCls} /></div>
+              <div><label className="block text-sm font-medium text-gray-300">Name (En)</label>
+                <input value={createForm.name_en} onChange={e => setCreateForm({ ...createForm, name_en: e.target.value })} className={inputCls} /></div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div><label className="block text-sm font-medium text-gray-300">Address (Bn)</label>
+                <textarea value={createForm.address_bn} onChange={e => setCreateForm({ ...createForm, address_bn: e.target.value })} className={inputCls} rows={2} /></div>
+              <div><label className="block text-sm font-medium text-gray-300">Address (En)</label>
+                <textarea value={createForm.address_en} onChange={e => setCreateForm({ ...createForm, address_en: e.target.value })} className={inputCls} rows={2} /></div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300">Phone Numbers</label>
+              {createForm.phones.map((phone, i) => (
+                <div key={i} className="flex gap-2 mt-1">
+                  <input value={phone} onChange={e => updateCreatePhone(i, e.target.value)} className={`flex-1 ${inputCls}`} />
+                  <button onClick={() => removeCreatePhone(i)} className="text-red-400 hover:text-red-300 text-sm">Remove</button>
+                </div>
+              ))}
+              <button onClick={addCreatePhone} className="mt-1 text-sm text-orange-400 hover:underline">+ Add Phone</button>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300">Emails</label>
+              {createForm.emails.map((email, i) => (
+                <div key={i} className="flex gap-2 mt-1">
+                  <input value={email} onChange={e => updateCreateEmail(i, e.target.value)} className={`flex-1 ${inputCls}`} />
+                  <button onClick={() => removeCreateEmail(i)} className="text-red-400 hover:text-red-300 text-sm">Remove</button>
+                </div>
+              ))}
+              <button onClick={addCreateEmail} className="mt-1 text-sm text-orange-400 hover:underline">+ Add Email</button>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div><label className="block text-sm font-medium text-gray-300">WhatsApp</label>
+                <input value={createForm.whatsapp} onChange={e => setCreateForm({ ...createForm, whatsapp: e.target.value })} className={inputCls} /></div>
+              <div><label className="block text-sm font-medium text-gray-300">Google Maps Embed URL</label>
+                <input value={createForm.map_embed_url} onChange={e => setCreateForm({ ...createForm, map_embed_url: e.target.value })} className={inputCls} /></div>
+            </div>
+            <button onClick={handleCreate}
+              className="px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-400 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-orange-500/30">
+              Create Branch
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-6">
         {branches.map(branch => (
           <div key={branch.id} className="bg-[#1F2937] rounded-xl p-6 shadow-sm border border-orange-500/10">

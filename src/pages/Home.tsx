@@ -81,7 +81,7 @@ export function HomePage() {
             </div>
           </Section>
           <Section delay={100}>
-            <h1 className={`${lang === 'bn' ? 'font-bangla leading-[1.4] pt-1' : 'font-heading leading-[1.5] pt-4 text-nowrap'} font-bold mb-6 text-5xl md:text-7xl tracking-wide text-white`}>
+            <h1 className={`${lang === 'bn' ? 'font-bangla leading-[1.4] pt-1' : 'font-heading leading-[1.5] pt-4'} font-bold mb-6 text-4xl sm:text-5xl md:text-7xl tracking-wide text-white`}>
               {lang === 'bn'
                 ? (settings.hero_title_bn || 'শাহজালাল ড্রাইভিং ট্রেনিং সেন্টার').split(' ').map((word, i) =>
                     word === 'ড্রাইভিং' ? <span key={i} className="text-gradient inline-block">ড্রাইভিং </span> : word + ' '
@@ -101,7 +101,6 @@ export function HomePage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/courses" className="btn-shine px-8 py-4 bg-gradient-energy text-white rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/40 hover:scale-105 transition-all shadow-lg shadow-orange-500/30">View Courses</Link>
               <Link to="/contact" className="px-8 py-4 border-2 border-orange-500/30 text-white rounded-xl font-semibold text-lg hover:bg-orange-500/10 hover:border-orange-500 hover:scale-105 transition-all">Contact Us</Link>
-              <Link to="/enroll" className="px-8 py-4 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-500 hover:scale-105 transition-all shadow-lg shadow-green-600/30">Apply Online</Link>
             </div>
           </Section>
         </div>

@@ -3,11 +3,20 @@ import { initReactI18next } from 'react-i18next'
 import bn from '../locales/bn.json'
 import en from '../locales/en.json'
 
+const savedLang = localStorage.getItem('lang') || 'bn'
+
 i18n.use(initReactI18next).init({
   resources: { bn: { translation: bn }, en: { translation: en } },
-  lng: 'bn',
+  lng: savedLang,
   fallbackLng: 'bn',
   interpolation: { escapeValue: false },
 })
+
+i18n.on('languageChanged', (lng) => {
+  localStorage.setItem('lang', lng)
+  document.documentElement.lang = lng
+})
+
+document.documentElement.lang = savedLang
 
 export default i18n

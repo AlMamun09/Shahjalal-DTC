@@ -27,7 +27,7 @@ export function ImageUpload({ value, onChange, folder = 'gallery', className }: 
   }
 
   return (
-    <div className={cn('flex gap-3 items-start', className)}>
+    <div className={cn('flex flex-wrap gap-3 items-start min-w-0', className)}>
       <input ref={ref} type="file" accept="image/*" onChange={handleFile} className="hidden" />
       <button type="button" onClick={() => ref.current?.click()} disabled={uploading}
         className="shrink-0 px-4 py-2 bg-white/[0.06] text-gray-300 rounded-xl text-sm font-medium hover:bg-white/[0.1] hover:text-white transition-all disabled:opacity-50 border border-white/[0.06]"
